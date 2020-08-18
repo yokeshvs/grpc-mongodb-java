@@ -1,5 +1,6 @@
 package com.yo.prototype.service;
 
+import com.google.protobuf.Empty;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -158,6 +159,18 @@ public class BlogServiceImpl extends BlogServiceGrpc.BlogServiceImplBase {
         Document document = mongoCollection.findOneAndDelete(eq("title", blog.getTitle()));
         responseObserver.onNext(projectResponse(Objects.requireNonNull(document)));
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public void listAllBlogs(Empty request, StreamObserver<CreateOrUpdateBlogResponse> responseObserver) {
+        try {
+            mongoCollection.find().forEach(document -> {
+                responseObserver.onNext(projectResponse(Objects.requireNonNull(document)));
+            });
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            responseObserver.onError(Status.INTERNAL.withDescription(e.getMessage()).asRuntimeException());
+        }
     }
 
     private CreateOrUpdateBlogResponse projectResponse(Document document) {

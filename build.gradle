@@ -6,8 +6,8 @@ plugins {
 
 group 'com.yo.prototype'
 version '1.0-SNAPSHOT'
-sourceCompatibility = JavaVersion.VERSION_14
-targetCompatibility = JavaVersion.VERSION_14
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()

@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package proto.blog;
 
+import "google/protobuf/empty.proto";
+
 option java_package = "com.yo.prototype";
 option java_multiple_files = true;
 
@@ -34,5 +36,7 @@ service BlogService {
   rpc deleteBlogByAuthor(CreateOrUpdateBlogRequest) returns (CreateOrUpdateBlogResponse) {};
   rpc deleteBlogByTitle(CreateOrUpdateBlogRequest) returns (CreateOrUpdateBlogResponse) {};
   rpc deleteBlogById(CreateOrUpdateBlogRequest) returns (CreateOrUpdateBlogResponse) {};
+
+  rpc listAllBlogs(google.protobuf.Empty) returns (stream CreateOrUpdateBlogResponse) {};
 
 }

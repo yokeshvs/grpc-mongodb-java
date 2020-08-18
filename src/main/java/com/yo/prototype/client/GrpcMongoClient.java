@@ -1,5 +1,6 @@
 package com.yo.prototype.client;
 
+import com.google.protobuf.Empty;
 import com.yo.prototype.Blog;
 import com.yo.prototype.BlogServiceGrpc;
 import com.yo.prototype.CreateOrUpdateBlogRequest;
@@ -66,6 +67,12 @@ public class GrpcMongoClient {
         System.out.println(createOrUpdateBlogResponse.toString());
     }
 
+    private void listAllBlogs() {
+        blogServiceBlockingStub.listAllBlogs(Empty.newBuilder().build()).forEachRemaining(createOrUpdateBlogResponse -> {
+            System.out.println(createOrUpdateBlogResponse.getBlog().toString());
+        });
+    }
+
     public static void main(String[] args) {
         GrpcMongoClient grpcMongoClient = new GrpcMongoClient();
         grpcMongoClient.initialize();
@@ -73,12 +80,13 @@ public class GrpcMongoClient {
         grpcMongoClient.createBlog("Luther", "Animal Kingdom", "Once upon a time, there lived a lion, king of the jungle!");
         grpcMongoClient.createBlog("Sam", "Lost in Jungle", "Blah blah blah, blah blah, blah blah blah blah");
 
-        grpcMongoClient.getBlogByAuthor("Sam");
-        grpcMongoClient.getBlogByAuthor("Sams");
+//        grpcMongoClient.getBlogByAuthor("Sam");
+//        grpcMongoClient.getBlogByAuthor("Sams");
+//
+//        grpcMongoClient.getBlogById("123");
+//        grpcMongoClient.getBlogByTitle("Lost in Jungle");
 
-        grpcMongoClient.getBlogById("123");
-        grpcMongoClient.getBlogByTitle("Lost in Jungle");
-
+        grpcMongoClient.listAllBlogs();
 
         grpcMongoClient.exit();
     }
