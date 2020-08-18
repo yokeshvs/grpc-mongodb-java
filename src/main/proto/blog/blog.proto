@@ -12,14 +12,27 @@ message Blog {
   string content = 4;
 }
 
-message CreateBlogRequest {
+message CreateOrUpdateBlogRequest {
   Blog blog = 1;
 }
 
-message CreateBlogResponse {
- Blog blog = 1;
+message CreateOrUpdateBlogResponse {
+  Blog blog = 1;
 }
 
 service BlogService {
-  rpc createBlog(CreateBlogRequest) returns (CreateBlogResponse) {};
+  rpc createBlog(CreateOrUpdateBlogRequest) returns (CreateOrUpdateBlogResponse) {};
+
+  rpc getBlogByAuthor(CreateOrUpdateBlogRequest) returns (CreateOrUpdateBlogResponse) {};
+  rpc getBlogById(CreateOrUpdateBlogRequest) returns (CreateOrUpdateBlogResponse) {};
+  rpc getBlogByTitle(CreateOrUpdateBlogRequest) returns (CreateOrUpdateBlogResponse) {};
+
+  rpc updateBlogByAuthor(CreateOrUpdateBlogRequest) returns (CreateOrUpdateBlogResponse) {};
+  rpc updateBlogByTitle(CreateOrUpdateBlogRequest) returns (CreateOrUpdateBlogResponse) {};
+  rpc updateBlogById(CreateOrUpdateBlogRequest) returns (CreateOrUpdateBlogResponse) {};
+
+  rpc deleteBlogByAuthor(CreateOrUpdateBlogRequest) returns (CreateOrUpdateBlogResponse) {};
+  rpc deleteBlogByTitle(CreateOrUpdateBlogRequest) returns (CreateOrUpdateBlogResponse) {};
+  rpc deleteBlogById(CreateOrUpdateBlogRequest) returns (CreateOrUpdateBlogResponse) {};
+
 }

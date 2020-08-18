@@ -14,6 +14,7 @@ public class GrpcMongoServer {
                 .addService(ProtoReflectionService.newInstance())
                 .build();
         server.start();
+        System.out.println("Successfully started gRPC Mongo Server");
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Received shutdown request");
             server.shutdown();
